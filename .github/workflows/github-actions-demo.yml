@@ -16,7 +16,7 @@ jobs:
       - name: setting up python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10.20-trixie"
+          python-version: "3.12"
 
       - name: req.txt is being read
         run: pip install -r requirements.txt
