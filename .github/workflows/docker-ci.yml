@@ -65,11 +65,11 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          docker pull DOCKER_USERNAME/pipeline-project:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
           docker stop my-app || true
           docker rm my-app || true
           docker run -d \
             --name my-app \
             --restart unless-stopped \
             -p 80:5000 \
-            DOCKER_USERNAME/pipeline-project:latest
+            ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
