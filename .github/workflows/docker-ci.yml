@@ -62,10 +62,10 @@ jobs:
                   --document-name "AWS-RunShellScript" \
                   --comment "Docker deployment" \
                   --parameters 'commands=[
-                    "docker pull DOCKERHUB_USERNAME/IMAGE_NAME:latest",
+                    "docker pull secrets.DOCKER_USERNAME/pipeline-project:main",
                     "docker stop my-app || true",
                     "docker rm my-app || true",
-                    "docker run -d --name my-app --restart unless-stopped -p 80:5000 DOCKERHUB_USERNAME/IMAGE_NAME:latest"
+                    "docker run -d --name my-app --restart unless-stopped -p 80:5000 secrets.DOCKER_USERNAME/pipeline-project:main"
                   ]' \
                   --query "Command.CommandId" \
                   --output text)
