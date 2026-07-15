@@ -54,3 +54,16 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           provenance: true
           sbom: true
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull dfak0/pipeline-project:main
+            docker stop pipeline-project || true
+            docker rm pipeline-project || true
+            docker run -d --name pipeline-project -p 80:5000 dfak0/pipeline-project:main
+  
