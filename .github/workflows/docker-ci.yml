@@ -61,15 +61,15 @@ jobs:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
-          docker stop my-app || true
-          docker rm my-app || true
-          docker run -d \
-            --name my-app \
-            --restart unless-stopped \
-            -p 80:5000 \
-            ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d \
+              --name my-app \
+              --restart unless-stopped \
+              -p 80:5000 \
+              ${{ secrets.DOCKER_USERNAME }}/pipeline-project:main
